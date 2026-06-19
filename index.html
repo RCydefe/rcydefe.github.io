@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HIGH SCORES</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <div class="cabinet">
+
+    <div class="marquee">
+      <h1 class="marquee-title">HIGH SCORES</h1>
+      <p class="marquee-sub">SELECT GAME <span class="cursor" aria-hidden="true">&#9608;</span></p>
+    </div>
+
+    <nav class="control-panel" id="tabs" role="tablist" aria-label="Select game"></nav>
+
+    <div class="screen-bezel">
+      <span class="bezel-screw tl" aria-hidden="true"></span>
+      <span class="bezel-screw tr" aria-hidden="true"></span>
+      <span class="bezel-screw bl" aria-hidden="true"></span>
+      <span class="bezel-screw br" aria-hidden="true"></span>
+
+      <div class="screen" id="screen">
+        <table class="board" id="board">
+          <thead>
+            <tr>
+              <th class="col-rank">RANK</th>
+              <th class="col-name">NAME</th>
+              <th class="col-score">SCORE</th>
+              <th class="col-date">DATE</th>
+            </tr>
+          </thead>
+          <tbody id="board-body" role="tabpanel"></tbody>
+        </table>
+        <div class="overlay-band overlay-top" aria-hidden="true"></div>
+        <div class="overlay-band overlay-bottom" aria-hidden="true"></div>
+        <div class="scanlines" aria-hidden="true"></div>
+        <div class="vignette" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <footer class="cab-footer">
+      <span>UPDATE SCORES &mdash; EDIT <code>scores.json</code> &amp; PUSH</span>
+    </footer>
+
+  </div>
+
+<script src="scripts.js"></script>
+</body>
+</html>
