@@ -56,18 +56,18 @@
       "sort": "asc",
       "games": [
         {
-          "id": "space-invaders",
-          "name": "SPACE INVADERS",
+          "id": "Super-Mario-Bros ",
+          "name": "Super Mario BrosS",
           "button": "red",
           "entries": [
-            { "name": "RAY", "time": 632.18, "date": "2026-06-16" },
-            { "name": "AAA", "time": 701.40, "date": "2026-05-10" },
-            { "name": "BTH", "time": 745.92, "date": "2026-04-28" }
+            { "name": "AAA", "time": 632.18, "date": "2026-06-16" },
+            { "name": "BBB", "time": 701.40, "date": "2026-05-10" },
+            { "name": "CCC", "time": 745.92, "date": "2026-04-28" }
           ]
         },
         {
-          "id": "galaga",
-          "name": "GALAGA",
+          "id": "ghosts-n-goblins",
+          "name": "Ghosts-n-Goblins",
           "button": "blue",
           "entries": [
             { "name": "TAZ", "time": 1142.05, "date": "2026-06-12" },
@@ -75,23 +75,15 @@
           ]
         },
         {
-          "id": "pac-man",
-          "name": "PAC-MAN",
+          "id": "aladdin-gen",
+          "name": "Aladdin (Sega Genesis)",
           "button": "yellow",
           "entries": [
             { "name": "REN", "time": 372.66, "date": "2026-02-02" },
             { "name": "RAY", "time": 410.12, "date": "2026-06-08" },
             { "name": "DOT", "time": 455.30, "date": "2026-03-19" }
           ]
-        },
-        {
-          "id": "quarter-drop",
-          "name": "QUARTER DROP",
-          "button": "green",
-          "entries": [
-            { "name": "RAY", "time": 245.30, "date": "2026-06-17" },
-            { "name": "DEV", "time": 298.77, "date": "2026-06-09" }
-          ]
+        }
         }
       ]
     }
