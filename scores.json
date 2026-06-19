@@ -12,7 +12,7 @@
     },
         {
       "id": "Tetris",
-      "name": "TETRISA",
+      "name": "TETRIS",
       "button": "purple",
       "highScores": [
         { "name": "TAZ", "score": 156300, "date": "2026-06-15" },
