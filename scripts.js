@@ -1,10 +1,14 @@
+const categoryTabsEl = document.getElementById("category-tabs");
 const tabsEl = document.getElementById("tabs");
 const bodyEl = document.getElementById("board-body");
+const marqueeTitleEl = document.getElementById("marquee-title");
+const metricHeaderEl = document.getElementById("metric-header");
 
 const BUTTON_CYCLE = ["red", "yellow", "blue", "white", "green"];
 
-let games = [];
-let activeIndex = 0;
+let categories = [];
+let activeCatIndex = 0;
+let activeGameIndex = 0;
 
 init();
 
@@ -13,24 +17,66 @@ async function init() {
     const res = await fetch("scores.json", { cache: "no-store" });
     if (!res.ok) throw new Error("scores.json not found");
     const data = await res.json();
-    games = Array.isArray(data.games) ? data.games : [];
+    categories = Array.isArray(data.categories) ? data.categories : [];
   } catch (err) {
-    games = [];
+    categories = [];
     console.error("Could not load scores.json:", err);
   }
 
-  if (games.length === 0) {
+  if (categories.length === 0) {
+    categoryTabsEl.innerHTML = "";
     tabsEl.innerHTML = "";
-    renderEmptyBoard("No games yet. Add one in scores.json.");
+    renderEmptyBoard("No boards yet. Add a category in scores.json.");
     return;
   }
 
-  renderTabs();
-  renderBoard(activeIndex);
+  renderCategoryTabs();
+  renderGameTabs();
+  renderBoard();
 }
 
-function renderTabs() {
+function renderCategoryTabs() {
+  categoryTabsEl.innerHTML = "";
+
+  categories.forEach((cat, i) => {
+    const btn = document.createElement("button");
+    btn.className = "category-tab";
+    btn.type = "button";
+    btn.setAttribute("role", "tab");
+    btn.setAttribute("aria-selected", i === activeCatIndex ? "true" : "false");
+    btn.id = `cat-tab-${cat.id || i}`;
+    btn.textContent = cat.label || `BOARD ${i + 1}`;
+
+    btn.addEventListener("click", () => {
+      if (i === activeCatIndex) return;
+      activeCatIndex = i;
+      activeGameIndex = 0;
+      renderCategoryTabs();
+      renderGameTabs();
+      renderBoard();
+    });
+
+    btn.addEventListener("keydown", (e) => {
+      if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+        e.preventDefault();
+        const dir = e.key === "ArrowRight" ? 1 : -1;
+        activeCatIndex = (activeCatIndex + dir + categories.length) % categories.length;
+        activeGameIndex = 0;
+        renderCategoryTabs();
+        renderGameTabs();
+        renderBoard();
+        const next = categoryTabsEl.querySelector(`[aria-selected="true"]`);
+        if (next) next.focus();
+      }
+    });
+
+    categoryTabsEl.appendChild(btn);
+  });
+}
+
+function renderGameTabs() {
   tabsEl.innerHTML = "";
+  const games = (categories[activeCatIndex] && categories[activeCatIndex].games) || [];
 
   games.forEach((game, i) => {
     const color = game.button || BUTTON_CYCLE[i % BUTTON_CYCLE.length];
@@ -40,7 +86,7 @@ function renderTabs() {
     btn.type = "button";
     btn.dataset.color = color;
     btn.setAttribute("role", "tab");
-    btn.setAttribute("aria-selected", i === activeIndex ? "true" : "false");
+    btn.setAttribute("aria-selected", i === activeGameIndex ? "true" : "false");
     btn.id = `tab-${game.id || i}`;
 
     const bulb = document.createElement("span");
@@ -54,18 +100,18 @@ function renderTabs() {
     btn.append(bulb, label);
 
     btn.addEventListener("click", () => {
-      activeIndex = i;
-      renderTabs();
-      renderBoard(activeIndex);
+      activeGameIndex = i;
+      renderGameTabs();
+      renderBoard();
     });
 
     btn.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
         e.preventDefault();
         const dir = e.key === "ArrowRight" ? 1 : -1;
-        activeIndex = (activeIndex + dir + games.length) % games.length;
-        renderTabs();
-        renderBoard(activeIndex);
+        activeGameIndex = (activeGameIndex + dir + games.length) % games.length;
+        renderGameTabs();
+        renderBoard();
         const next = tabsEl.querySelector(`[aria-selected="true"]`);
         if (next) next.focus();
       }
@@ -75,24 +121,40 @@ function renderTabs() {
   });
 }
 
-function renderBoard(index) {
-  const game = games[index];
+function renderBoard() {
+  const category = categories[activeCatIndex];
   bodyEl.innerHTML = "";
+
+  if (!category) {
+    renderEmptyBoard("No data for this board yet.");
+    return;
+  }
+
+  marqueeTitleEl.textContent = category.label || "SCOREBOARD";
+  const metric = category.metric === "time" ? "time" : "score";
+  metricHeaderEl.textContent = category.metricLabel || (metric === "time" ? "TIME" : "SCORE");
+
+  const game = (category.games || [])[activeGameIndex];
 
   if (!game) {
     renderEmptyBoard("No data for this game yet.");
     return;
   }
 
-  const scores = Array.isArray(game.highScores) ? [...game.highScores] : [];
-  scores.sort((a, b) => (b.score || 0) - (a.score || 0));
+  const entries = Array.isArray(game.entries) ? [...game.entries] : [];
+  const ascending = category.sort === "asc";
+  entries.sort((a, b) => {
+    const av = Number(a[metric]) || 0;
+    const bv = Number(b[metric]) || 0;
+    return ascending ? av - bv : bv - av;
+  });
 
-  if (scores.length === 0) {
-    renderEmptyBoard("No scores logged yet. Be the first.");
+  if (entries.length === 0) {
+    renderEmptyBoard("No runs logged yet. Be the first.");
     return;
   }
 
-  scores.forEach((entry, i) => {
+  entries.forEach((entry, i) => {
     const row = document.createElement("tr");
 
     const rank = document.createElement("td");
@@ -103,15 +165,15 @@ function renderBoard(index) {
     name.className = "col-name";
     name.textContent = (entry.name || "---").toUpperCase().slice(0, 6);
 
-    const score = document.createElement("td");
-    score.className = "col-score";
-    score.textContent = formatScore(entry.score);
+    const value = document.createElement("td");
+    value.className = "col-score";
+    value.textContent = metric === "time" ? formatTime(entry.time) : formatScore(entry.score);
 
     const date = document.createElement("td");
     date.className = "col-date";
     date.textContent = formatDate(entry.date);
 
-    row.append(rank, name, score, date);
+    row.append(rank, name, value, date);
     bodyEl.appendChild(row);
   });
 }
@@ -130,6 +192,15 @@ function renderEmptyBoard(message) {
 function formatScore(score) {
   const n = Number(score) || 0;
   return n.toLocaleString("en-US");
+}
+
+function formatTime(totalSeconds) {
+  const n = Number(totalSeconds) || 0;
+  const mins = Math.floor(n / 60);
+  const secs = n - mins * 60;
+  const wholeSecs = Math.floor(secs);
+  const ms = Math.round((secs - wholeSecs) * 1000);
+  return `${mins}:${String(wholeSecs).padStart(2, "0")}.${String(ms).padStart(3, "0")}`;
 }
 
 function formatDate(dateStr) {

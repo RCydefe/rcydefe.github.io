@@ -53,6 +53,46 @@ html, body {
     inset 0 0 0 2px #000;
 }
 
+/* ---------- category tabs ---------- */
+
+.category-tabs {
+  display: flex;
+  gap: 6px;
+  padding: 0 4px;
+  margin-bottom: 10px;
+}
+
+.category-tab {
+  flex: 1 1 0;
+  font-family: var(--font-display);
+  font-size: clamp(9px, 2.4vw, 11px);
+  letter-spacing: 1px;
+  text-align: center;
+  padding: 10px 8px;
+  border: none;
+  border-radius: 8px 8px 0 0;
+  background: #100e0c;
+  color: var(--phosphor-dim);
+  cursor: pointer;
+  box-shadow: inset 0 0 0 2px #000;
+  transition: color 0.15s ease, background 0.15s ease;
+}
+
+.category-tab:hover {
+  color: var(--phosphor);
+}
+
+.category-tab:focus-visible {
+  outline: 2px solid var(--marquee-amber);
+  outline-offset: 2px;
+}
+
+.category-tab[aria-selected="true"] {
+  background: linear-gradient(180deg, #2a1f10, #1a130a);
+  color: var(--marquee-amber);
+  text-shadow: 0 0 6px var(--marquee-amber);
+}
+
 /* ---------- marquee ---------- */
 
 .marquee {

@@ -1,52 +1,98 @@
 {
-  "games": [
+  "categories": [
     {
-      "id": "space-invaders",
-      "name": "SPACE INVADERS",
-      "button": "red",
-      "highScores": [
-        { "name": "RAY", "score": 25600, "date": "2026-06-14" },
-        { "name": "AAA", "score": 18450, "date": "2026-05-02" },
-        { "name": "BTH", "score": 11200, "date": "2026-04-21" }
-      ]
-    },
+      "id": "highscores",
+      "label": "HIGH SCORES",
+      "metric": "score",
+      "metricLabel": "SCORE",
+      "sort": "desc",
+      "games": [
         {
-      "id": "Tetris",
-      "name": "TETRIS",
-      "button": "purple",
-      "highScores": [
-        { "name": "TAZ", "score": 156300, "date": "2026-06-15" },
-        { "name": "RAY", "score": 144700, "date": "2026-05-30" },
-        { "name": "WOZ", "score": 98200, "date": "2026-04-11" }
+          "id": "space-invaders",
+          "name": "SPACE INVADERS",
+          "button": "red",
+          "entries": [
+            { "name": "RAY", "score": 25600, "date": "2026-06-14" },
+            { "name": "AAA", "score": 18450, "date": "2026-05-02" },
+            { "name": "BTH", "score": 11200, "date": "2026-04-21" }
+          ]
+        },
+        {
+          "id": "galaga",
+          "name": "GALAGA",
+          "button": "blue",
+          "entries": [
+            { "name": "TAZ", "score": 156300, "date": "2026-06-15" },
+            { "name": "RAY", "score": 144700, "date": "2026-05-30" },
+            { "name": "WOZ", "score": 98200, "date": "2026-04-11" }
+          ]
+        },
+        {
+          "id": "pac-man",
+          "name": "PAC-MAN",
+          "button": "yellow",
+          "entries": [
+            { "name": "REN", "score": 266330, "date": "2026-01-19" },
+            { "name": "RAY", "score": 198450, "date": "2026-06-05" },
+            { "name": "DOT", "score": 142200, "date": "2026-03-02" }
+          ]
+        },
+        {
+          "id": "quarter-drop",
+          "name": "QUARTER DROP",
+          "button": "green",
+          "entries": [
+            { "name": "RAY", "score": 99000, "date": "2026-06-10" },
+            { "name": "DEV", "score": 64200, "date": "2026-06-01" }
+          ]
+        }
       ]
     },
     {
-      "id": "galaga",
-      "name": "GALAGA",
-      "button": "blue",
-      "highScores": [
-        { "name": "TAZ", "score": 156300, "date": "2026-06-15" },
-        { "name": "RAY", "score": 144700, "date": "2026-05-30" },
-        { "name": "WOZ", "score": 98200, "date": "2026-04-11" }
-      ]
-    },
-    {
-      "id": "pac-man",
-      "name": "PAC-MAN",
-      "button": "yellow",
-      "highScores": [
-        { "name": "REN", "score": 266330, "date": "2026-01-19" },
-        { "name": "RAY", "score": 198450, "date": "2026-06-05" },
-        { "name": "DOT", "score": 142200, "date": "2026-03-02" }
-      ]
-    },
-    {
-      "id": "quarter-drop",
-      "name": "QUARTER DROP",
-      "button": "green",
-      "highScores": [
-        { "name": "RAY", "score": 99000, "date": "2026-06-10" },
-        { "name": "DEV", "score": 64200, "date": "2026-06-01" }
+      "id": "speedruns",
+      "label": "SPEED RUNS",
+      "metric": "time",
+      "metricLabel": "TIME",
+      "sort": "asc",
+      "games": [
+        {
+          "id": "space-invaders",
+          "name": "SPACE INVADERS",
+          "button": "red",
+          "entries": [
+            { "name": "RAY", "time": 632.18, "date": "2026-06-16" },
+            { "name": "AAA", "time": 701.40, "date": "2026-05-10" },
+            { "name": "BTH", "time": 745.92, "date": "2026-04-28" }
+          ]
+        },
+        {
+          "id": "galaga",
+          "name": "GALAGA",
+          "button": "blue",
+          "entries": [
+            { "name": "TAZ", "time": 1142.05, "date": "2026-06-12" },
+            { "name": "RAY", "time": 1255.90, "date": "2026-05-25" }
+          ]
+        },
+        {
+          "id": "pac-man",
+          "name": "PAC-MAN",
+          "button": "yellow",
+          "entries": [
+            { "name": "REN", "time": 372.66, "date": "2026-02-02" },
+            { "name": "RAY", "time": 410.12, "date": "2026-06-08" },
+            { "name": "DOT", "time": 455.30, "date": "2026-03-19" }
+          ]
+        },
+        {
+          "id": "quarter-drop",
+          "name": "QUARTER DROP",
+          "button": "green",
+          "entries": [
+            { "name": "RAY", "time": 245.30, "date": "2026-06-17" },
+            { "name": "DEV", "time": 298.77, "date": "2026-06-09" }
+          ]
+        }
       ]
     }
   ]
