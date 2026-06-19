@@ -10,6 +10,16 @@
         { "name": "BTH", "score": 11200, "date": "2026-04-21" }
       ]
     },
+        {
+      "id": "Tetris",
+      "name": "TETRISA",
+      "button": "purple",
+      "highScores": [
+        { "name": "TAZ", "score": 156300, "date": "2026-06-15" },
+        { "name": "RAY", "score": 144700, "date": "2026-05-30" },
+        { "name": "WOZ", "score": 98200, "date": "2026-04-11" }
+      ]
+    },
     {
       "id": "galaga",
       "name": "GALAGA",
